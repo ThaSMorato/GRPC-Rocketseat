@@ -3,7 +3,7 @@ const grpc = require('grpc');
 
 const path = require('path');
 
-const AuthorsDefinition = grpc.load(__dirname, path.resolve('../proto/authors.proto'));
+const AuthorsDefinition = grpc.load( path.resolve(__dirname,'../proto/authors.proto'));
 const AuthorClient = new AuthorsDefinition.AuthorService('localhost:50051', grpc.credentials.createInsecure());
 
 function promisefy(method){
@@ -20,4 +20,4 @@ function promisefy(method){
 ; (async () => {
     const Lucas = await promisefy('create')({name: "Lucas Santos", website: "io.lucas.dev"});
     console.log(Lucas);
-})
+})()

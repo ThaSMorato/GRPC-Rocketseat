@@ -15,12 +15,7 @@ function find ({request}, callback ){
 
 
 function create ({request}, callback ){
-    try{
-        const author = AuthorController.find(request.id);
-        return callback(null, author);
-    }catch (error){
-        return callback(error, null)
-    }
+    return callback(null, AuthorController.create(request));
 }
 
 

@@ -11,8 +11,8 @@ class AuthorRepository {
 
 
     constructor(){
-        if(fs.existsSync(AuthorRepository.dbLocation)) fs.mkdirSync(AuthorRepository.dbLocation, {recursive:true});
-        if(fs.existsSync(AuthorRepository.collectionPath)) fs.writeFileSync(AuthorRepository.collectionPath, "[]");
+        if(!fs.existsSync(AuthorRepository.dbLocation)) fs.mkdirSync(AuthorRepository.dbLocation, {recursive:true});
+        if(!fs.existsSync(AuthorRepository.collectionPath)) fs.writeFileSync(AuthorRepository.collectionPath, "[]");
         AuthorRepository.#collection = require(AuthorRepository.collectionPath);
     }
 
@@ -46,12 +46,12 @@ class AuthorRepository {
         return updatedAuthor;
     }
 
-    #serialize(entity){
+    serialize(entity){
         return JSON.stringify(entity);
     }
 
     save (){
-        fs.writeFileSync(AuthorRepository.collectionPath, this.#serialize(AuthorRepository.#collection));
+        fs.writeFileSync(AuthorRepository.collectionPath, this.serialize(AuthorRepository.#collection));
         return this;
     }
 }
